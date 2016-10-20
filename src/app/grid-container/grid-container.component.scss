@@ -2,7 +2,6 @@ section {
   display: flex;
   flex-wrap: wrap;
 }
-
 section::after {
   content: '';
   flex-grow: 999999999;
@@ -36,13 +35,10 @@ section::after {
 	}
 
 div {
-  flex-grow: 1;
-    margin: 2px;
-    background-color: violet;
-    height: 200px;
-//transition: 500ms all;
-    //animation: straightLine 2.5s;
- }
+  margin: 2px;
+  background-color: violet;
+  position: relative;
+}
 
  div:hover {
    filter: brightness(110%)

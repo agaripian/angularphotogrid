@@ -9,7 +9,7 @@ import {DragulaService} from 'ng2-dragula/ng2-dragula';
   viewProviders: [DragulaService]
 })
 export class GridContainerComponent implements OnInit {
-  window.flexibility(document.getElementsByClassName('container')[0]);
+
   images = [
   {
     "url": "photo-103450229.jpg",
@@ -281,12 +281,25 @@ export class GridContainerComponent implements OnInit {
     "width": 775,
     "height": 1170
   }
-]
+];
 
+ styles:any = [];
+ shadow = null;
 
   constructor(private dragulaService: DragulaService) {
+    dragulaService.setOptions('first-bag', {
+copy: true,
+copySortSource: true,
+      removeOnSpill: true
+    });
     dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
+    });
+    dragulaService.dragend.subscribe((value) => {
+      this.onDragEnd(value.slice(1));
+    });
+     dragulaService.shadow.subscribe((value) => {
+      this.onShadow(value.slice(1));
     });
     dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
@@ -315,6 +328,18 @@ export class GridContainerComponent implements OnInit {
     }
   }
 
+ private onShadow(args) {
+    console.log('on shadowwww');
+
+    let [el] = args;
+     if (!this.shadow){
+        this.shadow = this.makeElement();
+      //  this.shadow.classList.add("gu-transit");
+    }
+    el.style.display = 'none';
+    el.parentNode.insertBefore(this.shadow, el);
+  }
+
   private onDrag(args) {
     console.log(args);
     console.log('ondrag');
@@ -323,23 +348,30 @@ export class GridContainerComponent implements OnInit {
     this.removeClass(e, 'ex-moved');
   }
 
+  private onDragEnd(args) {
+    console.log('onDragEnddd')
+    this.shadow.remove();
+    this.shadow = null;
+  }
+
   private onDrop(args) {
       console.log(args);
     console.log('onDrop');
-    let [e, el] = args;
-    this.addClass(e, 'ex-moved');
+    let [el] = args;
+   // el.parentNode.replaceChild(this.makeElement(), el);
+
+  //  this.addClass(e, 'ex-moved');
   }
 
   private onOver(args) {
       console.log(args);
     console.log('onOver');
 
-    debugger;
-    var guMirror = document.getElementsByClassName('gu-mirror')
-    console.log('adding class scaleDown')
-    setTimeout(function() { guMirror[0].classList.add('scaleDown'); debugger;}, 0);
+    // var guMirror = document.getElementsByClassName('gu-mirror')
+    // console.log('adding class scaleDown')
+    // setTimeout(function() { guMirror[0].classList.add('scaleDown'); }, 0);
     let [e, el, container] = args;
-    this.addClass(el, 'ex-over');
+   // this.addClass(el, 'ex-over');
   }
 
   private onOut(args) {
@@ -349,8 +381,27 @@ export class GridContainerComponent implements OnInit {
     this.removeClass(el, 'ex-over');
   }
 
+  getStyles(name) {
+    return  this.styles[name];
+  }
+
+  makeElement(){
+    const newNode = document.createElement("div");
+    //newNode.textContent = "Wootley!";
+    newNode.classList.add("arrowDown");
+    return newNode;
+  }
+
 
   ngOnInit() {
+
+   this.images.forEach(element => {
+     const calcWidth: number = element.width*200/element.height;
+     this.styles[element.url] = {
+      'width':  calcWidth + 'px',
+      'flex-grow': calcWidth,
+    };
+  });
   }
 
 }

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotoComponent implements OnInit {
   image: {url: string, width: number, height: number};
+  paddingBottom: string;
 
   getUrl () {
     return 'https://xieranmaya.github.io/images/cats/' + this.image.url
@@ -24,12 +25,14 @@ export class PhotoComponent implements OnInit {
   }
 
   setPaddingBottom() {
+    console.log('here')
     return { 'padding-bottom': this.image.height/this.image.width*100 + '%'}
   }
 
   constructor() { }
 
   ngOnInit() {
+    this.paddingBottom = this.image.height/this.image.width*100 + '%';
   }
 
 }

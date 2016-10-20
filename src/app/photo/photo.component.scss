@@ -1,11 +1,12 @@
 img {
-  height: 200px;
-  object-fit: cover;
-  max-width: 100%;
-  min-width: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
   vertical-align: bottom;
-//  transition:1s all;
- // transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+}
+
+i{
+  display: block;
 }
 
 

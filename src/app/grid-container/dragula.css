@@ -5,7 +5,7 @@
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   filter: alpha(opacity=80);
-		  transition: 1s all; 
+		  transition: 1s all;
 
  // -webkit-animation: wiggle 0.3s 0s infinite ease-in;
 //  animation: wiggle 0.3s 0s infinite ease-in;
@@ -99,5 +99,14 @@ div:not(.gu-mirror){
 }
 
 .ex-moved {
-  
+
+}
+
+.arrowDown {
+   width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid #f00;
 }

@@ -1,0 +1,49 @@
+section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+section::after {
+  content: '';
+  flex-grow: 999999999;
+}
+
+@keyframes straightLine {
+  50% {
+    transform: translate3D(100px, -100px, 0);
+  }
+}
+
+@keyframes flex-out {
+	0% {
+		color:rgba(0,0,0,0);
+		width:auto;
+		}
+	100% {
+		color:rgba(0,0,0,1);
+		width:500px;
+		}
+	}
+@keyframes flex-in {
+	0% {
+		color:rgba(0,0,0,1);
+		width:500px;
+		}
+	100% {
+		color:rgba(0,0,0,0);
+		width:auto;
+		}
+	}
+
+div {
+  flex-grow: 1;
+    margin: 2px;
+    background-color: violet;
+    height: 200px;
+//transition: 500ms all;
+    //animation: straightLine 2.5s;
+ }
+
+ div:hover {
+   filter: brightness(110%)
+ }

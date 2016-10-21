@@ -340,12 +340,60 @@ copySortSource: true,
     el.parentNode.insertBefore(this.shadow, el);
   }
 
+  private offsetCalc(el) {
+      var rect = el.getBoundingClientRect(),
+      scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+      scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+  }
+
   private onDrag(args) {
+    var self = this;
     console.log(args);
     console.log('ondrag');
+    let [el, container] = args;
+    const mask = container;
+        var h = mask.clientHeight;
+        mask.addEventListener('touchend',function(e){
+          mask.removeEventListener('touchmove');
+        });
 
-    let [e, el] = args;
-    this.removeClass(e, 'ex-moved');
+        ['mousemove', 'touchmove'].forEach(function(e){
+          mask.addEventListener(e, moveHandler);
+        });
+
+        function moveHandler(e) {
+          const offset = self.offsetCalc(mask).top;
+          // if(DRRR.isMobile){
+          //   e.clientY = e.originalEvent.targetTouches[0].clientY;
+          // }
+          var mousePosition = e.clientY - offset;
+          //alert(mousePosition);
+          var topRegion = 0.65 * h;
+          var bottomRegion = 0.35 * h;
+      //if((DRRR.isMobile || e.which == 1) && (mousePosition < topRegion || mousePosition > bottomRegion)){    // e.which = 1 => click down !
+          if((e.which == 1) && (mousePosition < topRegion || mousePosition > bottomRegion)){    // e.which = 1 => click down !
+            var distance = mousePosition - h / 2;
+            distance = distance * 0.1; // <- velocity
+            mask.scrollTop = distance + mask.scrollTop;
+          }else{
+            mask.removeEventListener('mousemove touchmove');
+          }
+        };
+
+    // var h = window.innerHeight;
+    //     document.addEventListener("mousemove", function(e) {
+    //         var mousePosition = e.pageY - (window.pageYOffset || document.documentElement.scrollTop);
+    //         var topRegion = 220;
+    //         var bottomRegion = h - 220;
+    //         if(e.which == 1 && (mousePosition < topRegion || mousePosition > bottomRegion)){    // e.wich = 1 => click down !
+    //             var distance = e.clientY - h / 2;
+    //             distance = distance * 0.1; // <- velocity
+    //            document.documentElement.scrollTop = document.body.scrollTop += distance;
+    //         }else{
+    //             document.removeEventListener("mousemove");
+    //         }
+    //     });
   }
 
   private onDragEnd(args) {
@@ -388,7 +436,7 @@ copySortSource: true,
   makeElement(){
     const newNode = document.createElement("div");
     //newNode.textContent = "Wootley!";
-    newNode.classList.add("arrowDown");
+    newNode.classList.add( "arrowDown");
     return newNode;
   }
 

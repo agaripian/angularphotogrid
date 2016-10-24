@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-.arrowDown {
-   width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-
-  border-top: 20px solid #f00;
+.separator {
+  width: 2px;
+  background-color: cornflowerblue;
+  float: left;
+  border: 2px solid cornflowerblue ;
+  border-radius: 2px;
 }

@@ -5,6 +5,8 @@ section {
 section::after {
   content: '';
   flex-grow: 999999999;
+  margin: 0 auto;
+  text-align: center;
 }
 
 @keyframes straightLine {
@@ -35,9 +37,10 @@ section::after {
 	}
 
 div {
-  margin: 2px;
-  background-color: violet;
+  margin: 20px;
+  //background-color: violet;
   position: relative;
+  display: inline-block;
 }
 
  div:hover {

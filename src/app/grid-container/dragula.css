@@ -5,18 +5,16 @@
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   filter: alpha(opacity=80);
-		  transition: 1s all;
-
- // -webkit-animation: wiggle 0.3s 0s infinite ease-in;
-//  animation: wiggle 0.3s 0s infinite ease-in;
-}
-
-.scaleDown {
+  transition: 1s all;
   transform: scale(.5);
+
+  // scale above isnt working with the animation below need to debug
+ // -webkit-animation: wiggle 0.3s 0s infinite ease-in;
+ // animation: wiggle 0.3s 0s infinite ease-in;
 }
 
 div:not(.gu-mirror){
-  //animation:scaleIt 500ms;
+  animation:scaleIt 350ms;
 }
 
 @keyframes scaleIt {
@@ -35,18 +33,6 @@ div:not(.gu-mirror){
     transform: scale(1);
   }
 }
-
-
-.ex-moved{
- // animation: flexGrow 500ms ease forwards;
-}
-
-@keyframes flexGrow {
-  to {
-    flex: 1;
-  }
-}
-
 
 @-webkit-keyframes wiggle {
   0% {
@@ -88,17 +74,10 @@ div:not(.gu-mirror){
   user-select: none !important;
 }
 
-
 .gu-transit{
   opacity: .2;
 }
 
-
 .ex-over{
     filter: drop-shadow(0px 0px 10px rgba(0,0,0,.5));
 }
-
-.ex-moved {
-
-}
-

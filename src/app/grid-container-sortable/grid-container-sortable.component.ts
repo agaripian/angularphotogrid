@@ -1,14 +1,13 @@
 import { Component, OnInit, Renderer} from '@angular/core';
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
-import {imagesArray} from '../shared/images';
 
 @Component({
-  selector: 'app-grid-container',
-  templateUrl: './grid-container.component.html',
-  styleUrls: ['./grid-container.component.scss', 'dragula.css'],
+  selector: 'app-grid-container-sortable',
+  templateUrl: './grid-container-sortable.component.html',
+  styleUrls: ['./grid-container-sortable.component.scss'],
   viewProviders: [DragulaService]
 })
-export class GridContainerComponent implements OnInit {
+export class GridContainerSortableComponent implements OnInit {
 
  styles:any = [];
  shadow = null;
@@ -16,7 +15,6 @@ export class GridContainerComponent implements OnInit {
  _renderer:Renderer;
  mouseMoveListener: Function;
  mouseUpListener: Function;
- images = imagesArray;
 
   constructor(private dragulaService: DragulaService, renderer: Renderer) {
     this._renderer = renderer;

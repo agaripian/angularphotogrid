@@ -1,0 +1,21 @@
+section {
+  display: flex;
+  flex-wrap: wrap;
+}
+section::after {
+  content: '';
+  flex-grow: 999999999;
+  margin: 0 auto;
+  text-align: center;
+}
+
+div {
+  margin: 20px;
+  //background-color: violet;
+  position: relative;
+  display: inline-block;
+}
+
+ div:hover {
+   filter: brightness(110%)
+ }

@@ -1,7 +1,3 @@
-<p>
-  grid-container works!
-</p>
-
 <section class='container' [dragula]='"first-bag"' data-style="display: flex;">
   <div class='image-holder' *ngFor='let image of images' [ngStyle]="styles[image.url]" >
      <app-photo [image]="image" > </app-photo>

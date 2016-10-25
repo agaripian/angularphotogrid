@@ -25,7 +25,8 @@ export class GridContainerComponent implements OnInit {
     dragulaService.setOptions('first-bag', {
       copy: true,
       copySortSource: true,
-      removeOnSpill: true
+      removeOnSpill: true,
+      direction: 'horizontal'
     });
     dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
@@ -116,7 +117,7 @@ export class GridContainerComponent implements OnInit {
     //         mask.removeEventListener('mousemove touchmove');
     //       }
     //     };
-        debugger;
+          
          this.addClass(el, 'gu-copy');
          this.mouseMoveListener = this._renderer.listenGlobal('document', 'mousemove', (event) => this.handleMouseMove(event));
   }

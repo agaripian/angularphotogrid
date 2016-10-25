@@ -19,3 +19,28 @@ div {
  div:hover {
    filter: brightness(110%)
  }
+
+.gu-mirror {
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  transition: 150ms all;
+  transform: scale(.5);
+
+  // scale above isnt working with the animation below need to debug
+ // -webkit-animation: wiggle 0.3s 0s infinite ease-in;
+ // animation: wiggle 0.3s 0s infinite ease-in;
+}
+
+.separator {
+  width: 2px !important;
+  background-color: cornflowerblue;
+  float: left;
+  border: 2px solid cornflowerblue ;
+  border-radius: 2px;
+}
+
+
+.gu-copy{
+  opacity: .2;
+}

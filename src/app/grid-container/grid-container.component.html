@@ -3,7 +3,7 @@
 </p>
 
 <section class='container' [dragula]='"first-bag"' data-style="display: flex;">
-  <div *ngFor='let image of images' [ngStyle]="styles[image.url]" >
+  <div class='image-holder' *ngFor='let image of images' [ngStyle]="styles[image.url]" >
      <app-photo [image]="image" > </app-photo>
   </div>
 </section>

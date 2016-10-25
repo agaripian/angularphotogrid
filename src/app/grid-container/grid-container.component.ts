@@ -1,12 +1,13 @@
-import { Component, OnInit, Renderer} from '@angular/core';
+import { Component, OnInit, Renderer, ViewEncapsulation} from '@angular/core';
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
 import {imagesArray} from '../shared/images';
 
 @Component({
   selector: 'app-grid-container',
   templateUrl: './grid-container.component.html',
-  styleUrls: ['./grid-container.component.scss', 'dragula.css'],
-  viewProviders: [DragulaService]
+  styleUrls: ['./grid-container.component.scss'],
+  viewProviders: [DragulaService],
+  encapsulation: ViewEncapsulation.None
 })
 export class GridContainerComponent implements OnInit {
 
@@ -22,7 +23,7 @@ export class GridContainerComponent implements OnInit {
     this._renderer = renderer;
     this.
     dragulaService.setOptions('first-bag', {
-      //copy: true,
+      copy: true,
       copySortSource: true,
       removeOnSpill: true
     });
@@ -68,7 +69,7 @@ export class GridContainerComponent implements OnInit {
     let [el] = args;
      if (!this.shadow){
         this.shadow = this.makeElement();
-      //  this.shadow.classList.add("gu-transit");
+       // this.shadow.classList.add("gu-transit");
     }
     el.style.display = 'none';
     el.parentNode.insertBefore(this.shadow, el);
@@ -85,7 +86,7 @@ export class GridContainerComponent implements OnInit {
     var self = this;
     console.log(args);
     console.log('ondrag');
-    let [el, container] = args;
+    let [el, container, one, two] = args;
     // const mask = container;
     //     var h = mask.clientHeight;
     //     mask.addEventListener('touchend',function(e){
@@ -115,7 +116,8 @@ export class GridContainerComponent implements OnInit {
     //         mask.removeEventListener('mousemove touchmove');
     //       }
     //     };
-
+        debugger;
+         this.addClass(el, 'gu-copy');
          this.mouseMoveListener = this._renderer.listenGlobal('document', 'mousemove', (event) => this.handleMouseMove(event));
   }
 
@@ -128,7 +130,7 @@ export class GridContainerComponent implements OnInit {
         if (this.shouldScroll) { return; }
         let ammount = mousePosition - h / 2;
         ammount = ammount * 0.2; // <- velocity
-        this.shouldScroll = true;               
+        this.shouldScroll = true;
         this.autoScroll(ammount)
     }else{
         console.warn('no more mouse move')
@@ -169,9 +171,6 @@ export class GridContainerComponent implements OnInit {
         image.style.display = '';
          this.removeClass(image, 'gu-transit');;
         e.parentNode.replaceChild(image, e);
-          
-
-       // this.insertAfter(image, dropElm)
     }
 
   //  this.addClass(e, 'ex-moved');
@@ -218,7 +217,7 @@ export class GridContainerComponent implements OnInit {
   }
 
    ngOnDestroy() {
-    
+
     // Remove the listeners!
    this.mouseMoveListener();
   }

@@ -2,7 +2,7 @@
   grid-container SORTABLE works!
 </p>
 
-<section class='container' [dragula]='"first-bag"' data-style="display: flex;">
+<section class='container' [sortablejs]="images" [sortablejsOptions]="options">
   <div *ngFor='let image of images' [ngStyle]="styles[image.url]" >
      <app-photo [image]="image" > </app-photo>
   </div>

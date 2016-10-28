@@ -18,6 +18,7 @@ export class GridContainerComponent implements OnInit {
  mouseMoveListener: Function;
  mouseUpListener: Function;
  images = imagesArray;
+ placeholder = null;
 
   private hasClass(el: any, name: string) {
     if (el && el.className) {
@@ -44,7 +45,7 @@ export class GridContainerComponent implements OnInit {
     dragulaService.setOptions('first-bag', {
       copy: true,
       copySortSource: true,
-     // removeOnSpill: true,
+      removeOnSpill: true,
       direction: 'horizontal',
       // accepts: (el, target, source, sibling) => {
       //   console.log('invalidddddddddddd@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
@@ -74,6 +75,9 @@ export class GridContainerComponent implements OnInit {
     dragulaService.out.subscribe((value) => {
       this.onOut(value.slice(1));
     });
+    dragulaService.cancel.subscribe((value) => {
+      this.onCancel(value.slice(1));
+    });
   }
 
  private onShadow(args) {
@@ -86,11 +90,20 @@ export class GridContainerComponent implements OnInit {
     }
     el.style.display = 'none';
     this.shadow.style.display = '';
-    //Dont add the blue drop point indicator when its next to the image source that is being dragged 
-    if (this.hasClass(el.previousElementSibling, 'gu-copy') || this.hasClass(el.nextElementSibling, 'gu-copy')) {        
+    let previous = el.previousElementSibling;
+    let next = el.nextElementSibling;
+
+    //Dont add the blue drop point indicator when its next to the image source that is being dragged
+    if (this.hasClass(previous, 'separator')) {
+      previous = previous.previousElementSibling;
+    }
+     if (this.hasClass(next, 'separator')) {
+      next = next.nextElementSibling;
+    }
+    if (this.hasClass(previous, 'gu-copy') || this.hasClass(next, 'gu-copy')) {
       this.shadow.style.display = 'none';
     }
-    
+
     el.parentNode.insertBefore(this.shadow, el);
   }
 
@@ -135,8 +148,9 @@ export class GridContainerComponent implements OnInit {
     //         mask.removeEventListener('mousemove touchmove');
     //       }
     //     };
-          
+
          this.addClass(el, 'gu-copy');
+         this.placeholder = el;
          this.mouseMoveListener = this._renderer.listenGlobal('document', 'mousemove', (event) => this.handleMouseMove(event));
   }
 
@@ -183,15 +197,12 @@ export class GridContainerComponent implements OnInit {
       console.log(args);
     console.log('onDrop');
     let [e, el, container, dropElm] = args;
-    if (dropElm) {
+  //  if (dropElm) {
         const image = e.cloneNode(true);
-        image.style.border = '5px solid red'
-        //image.style.display = '';
+        image.style.display = '';
         this.removeClass(image, 'gu-transit');;
         e.parentNode.replaceChild(image, e);
-    }
-
-  //  this.addClass(e, 'ex-moved');
+ //   }
   }
 
   private onOver(args) {
@@ -205,11 +216,18 @@ export class GridContainerComponent implements OnInit {
    // this.addClass(el, 'ex-over');
   }
 
+//not needed
   private onOut(args) {
       console.log(args);
-    console.log('onOut');
+    console.log('onOut################');
+  }
+
+//needed for when drag is canceled, when you end drag by moving mouse outside viewport
+   private onCancel(args) {
+      console.log(args);
+    console.log('onOut################');
     let [e, el, container] = args;
-    this.removeClass(el, 'ex-over');
+    this.removeClass(this.placeholder, 'gu-copy');
   }
 
   getStyles(name) {
@@ -238,6 +256,7 @@ export class GridContainerComponent implements OnInit {
 
     // Remove the listeners!
    this.mouseMoveListener();
+   this.placeholder = null;
   }
 
 }

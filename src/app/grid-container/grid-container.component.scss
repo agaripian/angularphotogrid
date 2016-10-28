@@ -130,20 +130,29 @@ div {
  //height: 100%;
  padding: 0;
  margin: 0;
- position: relative; 
+ position: relative;
 }
 .separator::before {
   width: 0px !important;
   height: 100%;
   background-color: cornflowerblue;
-  border-left: 2px solid cornflowerblue ;
-  border-right: 2px solid cornflowerblue ;
+  border-left: 6px solid cornflowerblue ;
+ // border-right: 5px solid cornflowerblue ;
   content: '';
-  border-radius: 2px;
   position: absolute;
   top: 0;
-  left: -2px;
+  left: -3px;
 }
+
+// .separator {
+//   width: 2px;
+//   position: relative;
+//   background-color: cornflowerblue;
+//   border-left: 2px solid cornflowerblue ;
+//   border-right: 2px solid cornflowerblue ;
+//   content: '';
+//   border-radius: 2px;
+// }
 
 .gu-copy:not(.gu-mirror){
   opacity: .2;

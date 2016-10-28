@@ -3,6 +3,10 @@ img {
   top: 0;
   width: 100%;
   vertical-align: bottom;
+
+  &:hover {
+      filter: brightness(80%)
+    }
 }
 
 i{

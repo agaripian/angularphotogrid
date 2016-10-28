@@ -37,17 +37,14 @@ section::after {
 	}
 
 div {
-  margin: 16px;
+  //margin: 16px;
   //background-color: violet;
   position: relative;
   display: inline-block;
 
   &.image-holder:not(.gu-mirror) {
-   // animation:scaleIt 350ms;
-
-    &:hover {
-      filter: brightness(110%)
-    }
+    border: 16px solid white;
+    animation:scaleIt 350ms;
   }
 }
 

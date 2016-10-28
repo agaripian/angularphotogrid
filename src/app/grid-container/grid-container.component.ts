@@ -19,14 +19,42 @@ export class GridContainerComponent implements OnInit {
  mouseUpListener: Function;
  images = imagesArray;
 
+  private hasClass(el: any, name: string) {
+    if (el && el.className) {
+      return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
+    }
+    return false;
+  }
+
+  private addClass(el: any, name: string) {
+    if (!this.hasClass(el, name)) {
+      el.className = el.className ? [el.className, name].join(' ') : name;
+    }
+  }
+
+  private removeClass(el: any, name: string) {
+    if (this.hasClass(el, name)) {
+      el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
+    }
+  }
+
   constructor(private dragulaService: DragulaService, renderer: Renderer) {
     this._renderer = renderer;
     this.
     dragulaService.setOptions('first-bag', {
       copy: true,
       copySortSource: true,
-      removeOnSpill: true,
-      direction: 'horizontal'
+     // removeOnSpill: true,
+      direction: 'horizontal',
+      // accepts: (el, target, source, sibling) => {
+      //   console.log('invalidddddddddddd@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+      //   console.log(sibling);
+      // if (this.hasClass(sibling.previousElementSibling, 'gu-copy') || this.hasClass(sibling.nextElementSibling, 'gu-copy')) {
+      //     debugger;
+      //     return false;
+      //   }
+      //   return true;
+      // }
     });
     dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
@@ -48,22 +76,6 @@ export class GridContainerComponent implements OnInit {
     });
   }
 
-  private hasClass(el: any, name: string) {
-    return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
-  }
-
-  private addClass(el: any, name: string) {
-    if (!this.hasClass(el, name)) {
-      el.className = el.className ? [el.className, name].join(' ') : name;
-    }
-  }
-
-  private removeClass(el: any, name: string) {
-    if (this.hasClass(el, name)) {
-      el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
-    }
-  }
-
  private onShadow(args) {
     console.log('on shadowwww');
 
@@ -73,6 +85,12 @@ export class GridContainerComponent implements OnInit {
        // this.shadow.classList.add("gu-transit");
     }
     el.style.display = 'none';
+    this.shadow.style.display = '';
+    //Dont add the blue drop point indicator when its next to the image source that is being dragged 
+    if (this.hasClass(el.previousElementSibling, 'gu-copy') || this.hasClass(el.nextElementSibling, 'gu-copy')) {        
+      this.shadow.style.display = 'none';
+    }
+    
     el.parentNode.insertBefore(this.shadow, el);
   }
 
@@ -155,12 +173,10 @@ export class GridContainerComponent implements OnInit {
 
     this.mouseMoveListener();
 
-    this.shadow.remove();
-    this.shadow = null;
-  }
-
-  private insertAfter(el, referenceNode) {
-    referenceNode.parentNode.insertBefore(el, referenceNode);
+    if (this.shadow) {
+      this.shadow.remove();
+      this.shadow = null;
+    }
   }
 
   private onDrop(args) {
@@ -169,8 +185,9 @@ export class GridContainerComponent implements OnInit {
     let [e, el, container, dropElm] = args;
     if (dropElm) {
         const image = e.cloneNode(true);
-        image.style.display = '';
-         this.removeClass(image, 'gu-transit');;
+        image.style.border = '5px solid red'
+        //image.style.display = '';
+        this.removeClass(image, 'gu-transit');;
         e.parentNode.replaceChild(image, e);
     }
 

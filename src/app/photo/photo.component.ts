@@ -11,7 +11,8 @@ export class PhotoComponent implements OnInit {
   paddingBottom: string;
 
   getUrl () {
-    return 'https://xieranmaya.github.io/images/cats/' + this.image.url
+    return 'app/shared/images/' + this.image.url
+    // return 'https://xieranmaya.github.io/images/cats/' + this.image.url
   }
 
   setImageStyle() {

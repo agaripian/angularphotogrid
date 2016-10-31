@@ -43,7 +43,7 @@ div {
   display: inline-block;
 
   &.image-holder:not(.gu-mirror) {
-    border: 16px solid white;
+    border: 16px solid transparent;
     animation:scaleIt 350ms;
   }
 }
@@ -136,12 +136,12 @@ div {
   width: 0px !important;
   height: 100%;
   background-color: cornflowerblue;
-  border-left: 6px solid cornflowerblue ;
+  border-left: 4px solid cornflowerblue ;
  // border-right: 5px solid cornflowerblue ;
   content: '';
   position: absolute;
   top: 0;
-  left: -3px;
+  left: -2px;
 }
 
 // .separator {
